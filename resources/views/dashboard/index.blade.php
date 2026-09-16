@@ -1,6 +1,5 @@
 @extends('layouts.master')
 
-
 @vite('resources/css/dashboard/index.css')
 
 @push('styles')
@@ -15,7 +14,8 @@
             <div class="dashboard-header">
                 <div>
                     <h1 class="dashboard-title">
-                        خوش آمدید، {{ auth()->user()->name ?? 'کاربر گرامی' }} 👋
+                        خوش آمدید، {{ auth()->user()->full_name ?? 'کاربر گرامی' }}
+                        👋
                     </h1>
                     <p class="dashboard-subtitle">
                         پنل مدیریت و داشبورد کاربری شما
@@ -52,18 +52,21 @@
                         💬
                     </div>
                 </div>
-
                 {{-- Card 3 --}}
                 <div class="stat-card">
-                    <div>
-                        <span class="stat-label">وضعیت حساب</span>
-                        <h3 class="text-xl font-bold text-emerald-600 mt-2">فعال</h3>
-                        <span class="stat-muted">پلن ویژه</span>
+                    <!-- بلاک متنی (ستون عمودی) -->
+                    <div class="flex flex-col items-start gap-1">
+                        <span class="stat-label text-sm text-gray-500">سطح کاربر:</span>
+                        <span class="text-2xl font-bold text-gray-800"> {{ auth()->user()->role_lable }}</span>
                     </div>
+
+                    <!-- آیکون سمت چپ -->
                     <div class="stat-icon stat-icon-emerald">
-                        ⚡
+                        <!-- SVG / آیکون -->
+                        👤
                     </div>
                 </div>
+
             </div>
 
             {{-- Main Table / Content Area --}}
