@@ -57,4 +57,22 @@ class User extends Authenticatable
             }
         );
     }
+    // For user role management
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+    public function isOwner(): bool
+    {
+        return $this->role === 'owner';
+    }
+    public function isWriter(): bool
+    {
+        return $this->role === 'writer';
+    }
+    //For common accesses (like admin or owner)
+    public function  hasElevatedAccess(): bool
+    {
+        return in_array($this->role, ['admin', 'owner']);
+    }
 }
