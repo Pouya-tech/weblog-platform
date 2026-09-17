@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-    <div class="dashboard-wrapper rounded-2xl">
+    <div class="dashboard-wrapper ">
         <div class="dashboard-container">
 
             {{-- Top Bar / Header --}}
@@ -87,28 +87,28 @@
                         <thead class="table-head">
                             <tr>
                                 <th>عنوان</th>
-                                <th>تاریخ</th>
+                                <th>تاریخ انتشار</th>
                                 <th>وضعیت</th>
                                 <th class="text-left">عملیات </th>
                             </tr>
                         </thead>
                         <tbody class="table-body">
                             <tr class="table-row">
-                                <td class="table-cel">
-                                    @if (auth()->user()->isWriter())
-                                        <a href="#" class="table-btn-action btn btn-warning">ویرایش پیش‌نویس</a>
-                                    @elseif(auth()->user()->hasElevatedAccess())
-                                        <button class="table-btn-action text-emerald-600">تایید و انتشار</button>
-                                        <button class="table-btn-action text-rose-600">رد</button>
-                                    @endif
+                                <td class="table-cell text-right">
+                                    <button class="table-btn-action">جزئیات</button>
                                 </td>
 
                                 <td class="table-cell">امروز، ۱۴:۲۰</td>
                                 <td class="table-cell">
                                     <span class="badge-success">موفق</span>
                                 </td>
-                                <td class="table-cell text-left">
-                                    <button class="table-btn-action">جزئیات</button>
+                                <td class="table-cel">
+                                    @if (auth()->user()->isWriter())
+                                        <a href="#" class="table-btn-action btn btn-warning">بررسی پست</a>
+                                    @elseif(auth()->user()->hasElevatedAccess())
+                                        <button class="table-btn-action text-emerald-600">تایید و انتشار</button>
+                                        <button class="table-btn-action text-rose-600">رد</button>
+                                    @endif
                                 </td>
                             </tr>
                         </tbody>
