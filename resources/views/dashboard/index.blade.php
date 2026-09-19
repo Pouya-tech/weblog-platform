@@ -78,7 +78,7 @@
             {{-- Main Table / Content Area --}}
             <div class="dashboard-panel">
                 <div class="panel-header">
-                    <h2 class="panel-title">بلاگ های اخیر</h2>
+                    <h2 class="panel-title">مقالات اخیر</h2>
                     <a href="#" class="panel-link">مشاهده همه</a>
                 </div>
 

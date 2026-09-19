@@ -7,31 +7,37 @@
         <!-- داشبورد -->
         <li class="nav-item mb-2">
             <a href="{{ route('dashboard') }}"
-                class="nav-link text-white {{ request()->is('/') ? 'bg-danger' : 'hover-bg-secondary' }}">
+                class="nav-link text-white {{ request()->routeIs('dashboard') ? 'bg-danger' : 'hover-bg-secondary' }}">
                 <i class="bi bi-house-door me-2"></i> داشبورد
             </a>
         </li>
 
-        <!-- دسته‌بندی‌ها (فرض می‌کنیم نام مسیرش categories.index است) -->
-        <li class="nav-item mb-2">
-            <a href="#categories"
-                class="nav-link text-white {{ request()->routeIs('categories.*') ? 'bg-danger' : 'hover-bg-secondary' }}">
-                <i class="bi bi-list-ul me-2"></i> دسته‌بندی‌ها
-            </a>
-        </li>
+        <!-- دسته‌بندی‌ها -->
+        @can('manage-categories')
+            <li class="nav-item mb-2">
+                <a href="{{ route('categories.index')}}"
+                    class="nav-link text-white {{ request()->routeIs('categories.*') ? 'bg-danger' : 'hover-bg-secondary' }}">
+                    <i class="bi bi-collection me-2"></i> دسته‌بندی‌ها
+                </a>
+            </li>
+        @endcan
+        <!-- تگ ها -->
         <li class="nav-item mb-2">
             <a href="#tags"
                 class="nav-link text-white {{ request()->routeIs('tags.*') ? 'bg-danger' : 'hover-bg-secondary' }}">
-                <i class="bi bi-list-ul me-2"></i> تگ ها
+                <i class="bi bi-tags me-2"></i> تگ ها
             </a>
         </li>
+
+        <!-- مقالات -->
         <li class="nav-item mb-2">
             <a href="#posts"
                 class="nav-link text-white {{ request()->routeIs('posts.*') ? 'bg-danger' : 'hover-bg-secondary' }}">
-                <i class="bi bi-list-ul me-2"></i>مقالات
+                <i class="bi bi-file-earmark-text me-2"></i> مقالات
             </a>
         </li>
     </ul>
+
 </nav>
 
 <style>
