@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -20,24 +21,24 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+        Category::create($request->validated());
+
+        return redirect()->route('categories.index')
+        ->with('success','دسته بندی با موفقیت ایجاد شد');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

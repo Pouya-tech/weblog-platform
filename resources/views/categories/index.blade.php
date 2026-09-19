@@ -1,11 +1,5 @@
 @extends('layouts.master')
 
-@vite('resources/css/dashboard/index.css')
-
-@push('styles')
-    @vite('resources/css/dashboard/index.css')
-@endpush
-
 @section('content')
 <!-- Main Container (Card) -->
 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">

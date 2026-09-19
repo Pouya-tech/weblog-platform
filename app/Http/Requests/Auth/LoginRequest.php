@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth; // ✅
+
 
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -22,6 +23,26 @@ class LoginRequest extends FormRequest
             'login'    => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
+    }
+
+    protected function credentials(): array
+    {
+        return [
+            $this->loginType() => $this->input('login'),
+            'password'         => $this->input('password'),
+        ];
+    }
+
+    protected function loginType(): string
+    {
+        return filter_var($this->input('login'), FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'username';
+    }
+
+    protected function throttleKey(): string
+    {
+        return Str::transliterate(Str::lower($this->input('login')) . '|' . $this->ip());
     }
 
     public function authenticate(): void
@@ -46,25 +67,5 @@ class LoginRequest extends FormRequest
                     . RateLimiter::availableIn($this->throttleKey()) . ' seconds.',
             ]);
         }
-    }
-
-    protected function throttleKey(): string
-    {
-        return Str::transliterate(Str::lower($this->input('login')) . '|' . $this->ip());
-    }
-
-    protected function credentials(): array
-    {
-        return [
-            $this->loginType() => $this->input('login'),
-            'password'         => $this->input('password'),
-        ];
-    }
-
-    protected function loginType(): string
-    {
-        return filter_var($this->input('login'), FILTER_VALIDATE_EMAIL)
-            ? 'email'
-            : 'username';
     }
 }

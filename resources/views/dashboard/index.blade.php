@@ -1,11 +1,5 @@
 @extends('layouts.master')
 
-@vite('resources/css/dashboard/index.css')
-
-@push('styles')
-    @vite('resources/css/dashboard/index.css')
-@endpush
-
 @section('content')
     <div class="dashboard-wrapper ">
         <div class="dashboard-container">

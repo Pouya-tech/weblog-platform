@@ -1,0 +1,21 @@
+.hover-bg-secondary:hover {
+    background-color: #747a80;
+    border-radius: 5px;
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+    border-radius: 5px;
+}
+
+/* رنگ قرمز بوت‌استرپ */
+#sidebar {
+    direction: rtl;
+    text-align: right;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}

@@ -1,10 +1,32 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "tailwindcss";
 
+/* ==========================================
+   ۱. لایوت‌های عمومی پنل مدیریت (Layouts)
+   ========================================== */
+@import "./layout/navbar.css";
+@import "./layout/sidebar.css";
+@import "./layout/footer.css";
+@import "./layout/dashboard.css";
+
+/* ==========================================
+   ۲. صفحات احراز هویت (Auth)
+   ========================================== */
+@import "./auth/login.css";
+@import "./auth/Signup.css";
+
+/* ==========================================
+   ۳. صفحات داشبورد و ماژول‌ها (Pages & Modules)
+   ========================================== */
+@import "./dashboard/index.css";
+@import "./category/create.css";
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-  --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
 }
