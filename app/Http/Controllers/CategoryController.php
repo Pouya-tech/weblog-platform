@@ -13,7 +13,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index');
+        $categories = Category::latest()->get();
+
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -32,7 +34,7 @@ class CategoryController extends Controller
         Category::create($request->validated());
 
         return redirect()->route('categories.index')
-        ->with('success','دسته بندی با موفقیت ایجاد شد');
+            ->with('success', 'دسته بندی با موفقیت ایجاد شد');
     }
 
     /**
