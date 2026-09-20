@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -20,12 +21,23 @@ class UpdateCategoryRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'is_active' => $this->has('is_active'),
+            'is_featured' => $this->has('is_featured'),
+        ]);
+    }
+
+
     public function rules(): array
     {
+        $category = $this->route('category');
         return [
-            'name' => ['required', 'string', 'min:3', 'max:100', 'unique:categories.name'],
-            'is_active' => ['required', 'boolean'],
-            'is_featured' => ['required', 'boolean'],
+            'name' => ['required', 'string', 'min:3', 'max:100', Rule::unique('categories', 'name')->ignore($category)],
+            'slug' => ['required', 'string', 'max:255', Rule::unique('categories', 'slug')->ignore($category)],
+            'is_active' => ['boolean'],
+            'is_featured' => ['boolean'],
         ];
     }
 }

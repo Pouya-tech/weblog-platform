@@ -50,8 +50,16 @@
                             </td>
                             <td class="py-4 text-gray-500">{{ verta($category->created_at)->format('Y/m/d') }}</td>
                             <td class="py-4 flex gap-2">
-                                <a href="" class="p-2 bg-yellow-400 rounded hover:bg-yellow-500 transition">📝</a>
-                                <button class="p-2 bg-red-400 rounded hover:bg-red-500 transition">🗑️</button>
+                                <a href="{{ route('categories.edit', $category) }}"
+                                    class="p-2 bg-yellow-400 rounded hover:bg-yellow-500 transition">📝</a>
+                                <form action="{{ route('categories.destroy', $category) }}" method="POST"
+                                    onsubmit="return confirm('آیا از حذف این دسته بندی مطمئن هستید؟')">
+                                    @csrf
+                                    @method('DELETE')
+                                    
+                                    <button type="submit" class="p-2 bg-red-400 rounded hover:bg-red-500 transition">🗑️
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @empty
