@@ -32,8 +32,8 @@ class StoreTagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max=255', Rule::unique('tags', 'name')],
-            'slug' => ['required', 'string', 'max=255', Rule::unique('tags', 'slug')],
+            'name' => ['required', 'string', 'max:255', Rule::unique('tags', 'name')],
+            'slug' => ['required', 'string', 'max:255', Rule::unique('tags', 'slug')],
             'is_active' => ['nullable', 'boolean'],
         ];
     }
