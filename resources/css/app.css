@@ -22,6 +22,7 @@
 @import "./category/create.css";
 @import "./tags/index.css";
 @import "./tags/edit.css";
+@import "./tags/create.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

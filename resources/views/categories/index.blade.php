@@ -1,77 +1,101 @@
 @extends('layouts.master')
 
 @section('content')
-    <!-- Main Container (Card) -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+<div class="category-list-container">
 
-        <!-- Header & Action Button -->
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-lg font-bold text-gray-700">لیست دسته‌بندی‌ها</h2>
-            <a href="{{ route('categories.create') }}"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg flex items-center gap-2 transition">
-                ثبت دسته‌بندی جدید +
-            </a>
+    <!-- هدر: عنوان صفحه و دکمه افزودن -->
+    <div class="category-list-header">
+        <div class="page-title">
+            <span class="title-accent"></span>
+            <h4>لیست دسته‌بندی‌ها</h4>
         </div>
 
-        <!-- Table -->
-        <div class="overflow-x-auto">
+        <a href="{{ route('categories.create') }}" class="btn-primary-action">
+            <i class="bi bi-plus-lg"></i> ثبت دسته‌بندی جدید
+        </a>
+    </div>
 
-            <table class="w-full text-right border-collapse">
-                <thead class="border-b border-gray-200">
-                    <tr class="text-gray-400 text-sm">
-                        <th class="pb-3">ردیف</th>
-                        <th class="pb-3">عنوان</th>
-                        <th class="pb-3">اسلاگ(نامک یکتا)</th>
-                        <th class="pb-3">وضعیت</th>
-                        <th class="pb-3">ویژه</th>
-                        <th class="pb-3">تاریخ ثبت</th>
-                        <th class="pb-3">عملیات</th>
+    <!-- کارت جدول -->
+    <div class="category-table-card">
+        <div class="table-responsive">
+            <table class="category-table">
+                <thead>
+                    <tr>
+                        <th class="text-center">ردیف</th>
+                        <th>عنوان</th>
+                        <th>اسلاگ (نامک یکتا)</th>
+                        <th class="text-center">وضعیت</th>
+                        <th class="text-center">ویژه</th>
+                        <th class="text-center">تاریخ ثبت</th>
+                        <th class="text-center">عملیات</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100">
-                    @forelse ($categories as $category)
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="py-4">{{ $loop->iteration }}</td>
-                            <td class="py-4">{{ $category->name }}</td>
-                            <td class="py-4">{{ $category->slug }}</td>
-                            <td class="py-4">
-                                @if ($category->is_active)
-                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-lg text-sm">فعال</span>
+                <tbody>
+                    @forelse($categories as $category)
+                        <tr>
+                            <td class="text-center row-number">
+                                {{ $loop->iteration }}
+                            </td>
+                            <td class="item-title font-bold">
+                                {{ $category->name }}
+                            </td>
+                            <td class="item-slug">
+                                <code>{{ $category->slug }}</code>
+                            </td>
+                            <td class="text-center">
+                                @if($category->is_active)
+                                    <span class="badge-status badge-success">فعال</span>
                                 @else
-                                    <span class="px-2 py-1 bg-red-100 text-red-600 rounded-lg text-sm">غیر فعال</span>
+                                    <span class="badge-status badge-danger">غیر فعال</span>
                                 @endif
                             </td>
-                            <td class="py-4">
-                                @if ($category->is_featured)
-                                    <span class="px-2 py-1 bg-green-100 text-green-600 rounded-lg text-sm">فعال</span>
+                            <td class="text-center">
+                                @if($category->is_featured)
+                                    <span class="badge-status badge-success">فعال</span>
                                 @else
-                                    <span class="px-2 py-1 bg-red-100 text-red-600 rounded-lg text-sm">غیر فعال</span>
+                                    <span class="badge-status badge-danger">غیر فعال</span>
                                 @endif
                             </td>
-                            <td class="py-4 text-gray-500">{{ verta($category->created_at)->format('Y/m/d') }}</td>
-                            <td class="py-4 flex gap-2">
-                                <a href="{{ route('categories.edit', $category) }}"
-                                    class="p-2 bg-yellow-400 rounded hover:bg-yellow-500 transition">📝</a>
-                                <form action="{{ route('categories.destroy', $category) }}" method="POST"
-                                    onsubmit="return confirm('آیا از حذف این دسته بندی مطمئن هستید؟')">
-                                    @csrf
-                                    @method('DELETE')
-                                    
-                                    <button type="submit" class="p-2 bg-red-400 rounded hover:bg-red-500 transition">🗑️
-                                    </button>
-                                </form>
+                            <td class="text-center item-date">
+                                {{ function_exists('verta') ? verta($category->created_at)->format('Y/m/d') : $category->created_at->format('Y-m-d') }}
+                            </td>
+                            <td class="text-center">
+                                <div class="action-buttons">
+                                    <!-- دکمه ویرایش -->
+                                    <a href="{{ route('categories.edit', $category->id) }}" class="btn-action btn-edit" title="ویرایش">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+
+                                    <!-- دکمه حذف -->
+                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline" onsubmit="return confirm('آیا از حذف این دسته‌بندی مطمئن هستید؟')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-action btn-delete" title="حذف">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="py-8 text-center text-red-500">
-                                هیچ دسته بندی یافت نشد
+                            <td colspan="7" class="empty-table-state">
+                                <i class="bi bi-folder-x"></i>
+                                <p>هیچ دسته‌بندی‌ای یافت نشد.</p>
                             </td>
                         </tr>
                     @endforelse
-                    {{-- @endforeach --}}
                 </tbody>
             </table>
         </div>
+
+        <!-- صفحه‌بندی (Pagination) در صورت نیاز -->
+        @if(method_exists($categories, 'links'))
+            <div class="category-pagination">
+                {{ $categories->links() }}
+            </div>
+        @endif
     </div>
+
+</div>
 @endsection
