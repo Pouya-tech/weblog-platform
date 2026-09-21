@@ -31,31 +31,35 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        //
+        Tag::create($request->validated());
+
+        return redirect()->route('tag.index')->with('success', 'تگ با موفقیت ایجاد شد');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Tag $tag)
-    {
-        //
-    }
+    // public function show(Tag $tag)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('tags.edit', compact('tag'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tag $tag)
+    public function update(UpdateTagRequest $request, Tag $tag)
     {
-        //
+        $tag->update($request->validated());
+
+        return redirect()->route('tags.index')->with('success', 'تگ باموفقیت ویرایش شد');
     }
 
     /**
@@ -63,6 +67,8 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        return redirect()->route('tags.index')->with('success', 'تگ با موفقیت حذف شد');
     }
 }
