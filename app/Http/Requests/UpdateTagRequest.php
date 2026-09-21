@@ -21,11 +21,19 @@ class UpdateTagRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'is_active' => $this->boolean('is_active'),
+        ]);
+    }
+
     public function rules(): array
     {
+        $tag = $this->route('tag');
         return [
-            'name' => ['required', 'string', 'max=255', Rule::unique('tags', 'name')],
-            'slug' => ['required', 'string', 'max=255', Rule::unique('tags', 'slug')],
+            'name' => ['required', 'string', 'max:255', Rule::unique('tags', 'name')->ignore($tag)],
+            'slug' => ['required', 'string', 'max:255', Rule::unique('tags', 'slug')->ignore($tag)],
             'is_active' => ['nullable', 'boolean'],
         ];
     }

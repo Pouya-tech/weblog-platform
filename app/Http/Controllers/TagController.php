@@ -33,7 +33,7 @@ class TagController extends Controller
     {
         Tag::create($request->validated());
 
-        return redirect()->route('tag.index')->with('success', 'تگ با موفقیت ایجاد شد');
+        return redirect()->route('tags.index')->with('success', 'تگ با موفقیت ایجاد شد');
     }
 
     /**
