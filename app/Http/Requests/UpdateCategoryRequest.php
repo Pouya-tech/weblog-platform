@@ -24,8 +24,8 @@ class UpdateCategoryRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'is_active' => $this->has('is_active'),
-            'is_featured' => $this->has('is_featured'),
+            'is_active' => $this->boolean('is_active'),
+            'is_featured' => $this->boolean('is_featured'),
         ]);
     }
 

@@ -20,10 +20,10 @@
                 <!-- ردیف عنوان و اسلاگ -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="name    " class="form-label">عنوان دسته‌بندی <span class="required">*</span></label>
+                        <label for="name" class="form-label">عنوان دسته‌بندی <span class="required">*</span></label>
                         <input type="text" name="name" id="name"
                             class="form-control @error('name') is-invalid @enderror" placeholder="مثال: آموزش برنامه‌نویسی"
-                            value="{{ old('name') }}" required>
+                            value="{{ old('name') }}">
                         @error('name')
                             <span class="error-feedback">{{ $message }}</span>
                         @enderror

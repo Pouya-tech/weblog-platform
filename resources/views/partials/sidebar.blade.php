@@ -15,7 +15,7 @@
         <!-- دسته‌بندی‌ها -->
         @can('manage-categories')
             <li class="nav-item mb-2">
-                <a href="{{ route('categories.index')}}"
+                <a href="{{ route('categories.index') }}"
                     class="nav-link text-white {{ request()->routeIs('categories.*') ? 'bg-danger' : 'hover-bg-secondary' }}">
                     <i class="bi bi-collection me-2"></i> دسته‌بندی‌ها
                 </a>
@@ -23,7 +23,7 @@
         @endcan
         <!-- تگ ها -->
         <li class="nav-item mb-2">
-            <a href="#tags"
+            <a href="{{ route('tags.index') }}"
                 class="nav-link text-white {{ request()->routeIs('tags.*') ? 'bg-danger' : 'hover-bg-secondary' }}">
                 <i class="bi bi-tags me-2"></i> تگ ها
             </a>
@@ -39,5 +39,3 @@
     </ul>
 
 </nav>
-
-

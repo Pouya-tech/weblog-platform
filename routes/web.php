@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,5 +35,10 @@ Route::post('/logout', [LoginController::class, 'destroy'])
 
 Route::prefix('admin')->group(function () {
     Route::resource('categories', CategoryController::class)->middleware('can:manage-categories')
+        ->except(['show']);
+});
+
+Route::prefix('admin')->group(function () {
+    Route::resource('tags', TagController::class)
         ->except(['show']);
 });
