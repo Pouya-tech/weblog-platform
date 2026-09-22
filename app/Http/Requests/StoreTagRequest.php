@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 use Override;
 
 class StoreTagRequest extends FormRequest
@@ -14,7 +15,7 @@ class StoreTagRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('manage-tags');
     }
 
     /**
