@@ -23,5 +23,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-categories', function ($user) {
             return in_array($user->role, ['admin', 'owner']);
         });
+
+        Gate::define('manage-tags', function ($user) {
+            return in_array($user->role, ['admin', 'owner']);
+        });
     }
 }

@@ -34,11 +34,13 @@ Route::post('/logout', [LoginController::class, 'destroy'])
     ->name('logout');
 
 Route::prefix('admin')->group(function () {
-    Route::resource('categories', CategoryController::class)->middleware('can:manage-categories')
+    // Categories
+    Route::resource('categories', CategoryController::class)
+        ->middleware('can:manage-categories')
         ->except(['show']);
-});
 
-Route::prefix('admin')->group(function () {
+    // Tags
     Route::resource('tags', TagController::class)
+        ->middleware('can:manage-tags')
         ->except(['show']);
 });
