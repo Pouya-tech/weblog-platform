@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        // Prevent the N+1 Query
+        $posts = Post::with(['category', 'user'])
+            ->latest()
+            ->paginate(10);
+
+        return route('posts.index', compact($posts));
     }
 
     /**
@@ -20,15 +27,24 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::where('is_active', true)->get();
+        return view('posts.create', compact($categories));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $data['user_id'] = auth()->id();
+
+        Post::create($data);
+
+        return redirect()
+        ->route('posts.index')
+        ->with('success','پست با موفقیت ثبت گردید');
     }
 
     /**

@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,4 +44,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('tags', TagController::class)
         ->middleware('can:manage-tags')
         ->except(['show']);
+
+    // Posts
+    Route::resource('posts', PostController::class)
+        ->middleware('can:manage-posts');
 });
