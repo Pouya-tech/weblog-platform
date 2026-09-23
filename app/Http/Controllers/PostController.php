@@ -19,7 +19,7 @@ class PostController extends Controller
             ->latest()
             ->paginate(10);
 
-        return route('posts.index', compact($posts));
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -38,13 +38,13 @@ class PostController extends Controller
     {
         $data = $request->validated();
 
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = $request->user()->id;
 
         Post::create($data);
 
         return redirect()
-        ->route('posts.index')
-        ->with('success','پست با موفقیت ثبت گردید');
+            ->route('posts.index')
+            ->with('success', 'پست با موفقیت ثبت گردید');
     }
 
     /**
