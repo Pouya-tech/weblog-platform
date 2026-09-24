@@ -31,7 +31,7 @@
 
         <!-- مقالات -->
         <li class="nav-item mb-2">
-            <a href="#posts"
+            <a href="{{route('posts.index')}}"
                 class="nav-link text-white {{ request()->routeIs('posts.*') ? 'bg-danger' : 'hover-bg-secondary' }}">
                 <i class="bi bi-file-earmark-text me-2"></i> مقالات
             </a>

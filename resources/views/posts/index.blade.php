@@ -10,14 +10,14 @@
             <h4>جستجوی پیشرفته</h4>
         </div>
 
-        <a href="{{ route('articles.create') }}" class="btn-primary-action">
+        <a href="{{ route('posts.create') }}" class="btn-primary-action">
             <i class="bi bi-plus-lg"></i> ثبت مقاله جدید
         </a>
     </div>
 
     <!-- بخش جستجوی پیشرفته -->
     <div class="filter-card">
-        <form action="{{ route('articles.index') }}" method="GET" class="filter-form">
+        <form action="{{ route('posts.index') }}" method="GET" class="filter-form">
             <div class="filter-grid">
                 <!-- فیلتر عنوان -->
                 <div class="form-group">
@@ -56,7 +56,7 @@
                 <button type="submit" class="btn-filter btn-search">
                     <i class="bi bi-search"></i> جستجو
                 </button>
-                <a href="{{ route('articles.index') }}" class="btn-filter btn-reset">
+                <a href="{{ route('posts.index') }}" class="btn-filter btn-reset">
                     <i class="bi bi-arrow-counterclockwise"></i> ریست
                 </a>
             </div>
@@ -87,18 +87,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($articles as $article)
+                    @forelse($posts  as $post)
                         <tr>
                             <td class="text-center row-number">
                                 {{ $loop->iteration }}
                             </td>
                             <td class="text-center item-id">
-                                {{ $article->id }}
+                                {{ $post->id }}
                             </td>
                             <td class="text-center">
                                 <div class="article-thumb-wrapper">
-                                    @if($article->image)
-                                        <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->title }}" class="article-thumb">
+                                    @if($post->image)
+                                        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="article-thumb">
                                     @else
                                         <div class="article-thumb-placeholder">
                                             <i class="bi bi-image"></i>
@@ -107,35 +107,35 @@
                                 </div>
                             </td>
                             <td class="item-category">
-                                {{ $article->category->name ?? 'بدون دسته‌بندی' }}
+                                {{ $post->category->name ?? 'بدون دسته‌بندی' }}
                             </td>
                             <td class="item-title font-bold">
-                                {{ $article->title }}
+                                {{ $post->title }}
                             </td>
                             <td class="text-center">
-                                @if($article->is_active)
+                                @if($post->is_active)
                                     <span class="badge-status badge-success">فعال</span>
                                 @else
                                     <span class="badge-status badge-danger">غیر فعال</span>
                                 @endif
                             </td>
                             <td class="text-center">
-                                @if($article->is_featured)
+                                @if($post->is_featured)
                                     <span class="badge-status badge-warning">ویژه</span>
                                 @else
                                     <span class="badge-status badge-secondary">غیر ویژه</span>
                                 @endif
                             </td>
                             <td class="text-center item-date">
-                                {{ function_exists('verta') ? verta($article->created_at)->format('Y/m/d - H:i') : $article->created_at->format('Y-m-d H:i') }}
+                                {{ function_exists('verta') ? verta($post->created_at)->format('Y/m/d - H:i') : $post->created_at->format('Y-m-d H:i') }}
                             </td>
                             <td class="text-center">
                                 <div class="action-buttons">
-                                    <a href="{{ route('articles.edit', $article->id) }}" class="btn-action btn-edit" title="ویرایش">
+                                    <a href="{{ route('articles.edit', $post->id) }}" class="btn-action btn-edit" title="ویرایش">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
 
-                                    <form action="{{ route('articles.destroy', $article->id) }}" method="POST" class="d-inline" onsubmit="return confirm('آیا از حذف این مقاله مطمئن هستید؟')">
+                                    <form action="{{ route('articles.destroy', $post->id) }}" method="POST" class="d-inline" onsubmit="return confirm('آیا از حذف این مقاله مطمئن هستید؟')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn-action btn-delete" title="حذف">
@@ -157,9 +157,9 @@
             </table>
         </div>
 
-        @if(method_exists($articles, 'links'))
+        @if(method_exists($posts, 'links'))
             <div class="article-pagination">
-                {{ $articles->links() }}
+                {{ $posts->links() }}
             </div>
         @endif
     </div>
