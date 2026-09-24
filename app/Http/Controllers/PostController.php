@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\support\Str;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
@@ -19,7 +20,8 @@ class PostController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('posts.index', compact('posts'));
+        $categories = Category::all();
+        return view('posts.index', compact('posts', 'categories'));
     }
 
     /**
@@ -28,7 +30,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::where('is_active', true)->get();
-        return view('posts.create', compact($categories));
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -38,10 +40,24 @@ class PostController extends Controller
     {
         $data = $request->validated();
 
+
+
         $data['user_id'] = $request->user()->id;
 
-        Post::create($data);
-
+        // If user didnt wirte slug create one from title
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['slug']);
+        }
+        // Store image from form 
+        if ($request->hasFile('image')) {
+            // مسیر ذخیره‌شده برمی‌گرده، مثلاً: posts/filename.jpg
+            $data['image'] = $request->file('image')->store('posts', 'public');
+        }
+        // Sync Tags if exists
+        $post = Post::create($data);
+        if ($request->filled('tags')) {
+            $post->tags()->sync($request->input('tags'));
+        }
         return redirect()
             ->route('posts.index')
             ->with('success', 'پست با موفقیت ثبت گردید');
