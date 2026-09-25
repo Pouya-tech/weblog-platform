@@ -1,0 +1,254 @@
+/* ظرف اصلی صفحه ایجاد */
+.post-create-container {
+    direction: rtl;
+    text-align: right;
+    padding: 1.5rem 2rem;
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+/* کارت دربرگیرنده */
+.post-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+}
+
+/* هدر کارت و دکمه بازگشت */
+.post-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.page-title h4 {
+    margin: 0;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 1.3rem;
+}
+
+.title-accent {
+    width: 4px;
+    height: 22px;
+    background-color: #4f46e5;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* دکمه بازگشت زردرنگ استایل مدرن */
+.btn-back {
+    background-color: #fef3c7;
+    color: #d97706;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+    background-color: #fde68a;
+    color: #b45309;
+    transform: translateY(-1px);
+}
+
+/* چیدمان شبکه‌ای فیلدها */
+.form-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .form-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .form-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.form-group.full-width {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.text-danger {
+    color: #ef4444;
+}
+
+/* استایل ورودی‌ها */
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 0.65rem 0.95rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    color: #1e293b;
+    font-size: 0.88rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: #6366f1;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ورودی فایل سفارشی */
+.form-file-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    color: #475569;
+    font-size: 0.82rem;
+    cursor: pointer;
+}
+
+.form-file-input::file-selector-button {
+    background-color: #e2e8f0;
+    color: #334155;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    margin-left: 0.6rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.form-file-input::file-selector-button:hover {
+    background-color: #cbd5e1;
+}
+
+/* پیام خطا */
+.error-feedback {
+    color: #ef4444;
+    font-size: 0.78rem;
+    margin-top: 0.2rem;
+}
+
+.is-invalid {
+    border-color: #ef4444 !important;
+}
+
+/* چک‌باکس‌ها */
+.switches-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem 0;
+}
+
+.custom-switch-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+.custom-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #4f46e5;
+    cursor: pointer;
+}
+
+/* فوتر و دکمه‌های اکشن */
+.form-footer-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.6rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+}
+
+.btn-reset {
+    background-color: #f43f5e;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.65rem 1.6rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+.btn-reset:hover {
+    background-color: #e11d48;
+    transform: translateY(-2px);
+}

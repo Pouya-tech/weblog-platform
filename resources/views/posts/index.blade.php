@@ -121,21 +121,23 @@
                             </td>
                             <td class="text-center">
                                 @if($post->is_featured)
-                                    <span class="badge-status badge-warning">ویژه</span>
+                                    <span class="badge-status badge-warning">ویژه میباشد</span>
                                 @else
-                                    <span class="badge-status badge-secondary">غیر ویژه</span>
+                                    <span class="badge-status badge-secondary">ویژه نمیباشد</span>
                                 @endif
                             </td>
                             <td class="text-center item-date">
-                                {{ function_exists('verta') ? verta($post->created_at)->format('Y/m/d - H:i') : $post->created_at->format('Y-m-d H:i') }}
+                                {{ function_exists('verta') ? verta($post->created_at)->format('Y/m/d') : $post->created_at->format('Y-m-d H:i') }}
                             </td>
                             <td class="text-center">
                                 <div class="action-buttons">
-                                    <a href="{{ route('articles.edit', $post->id) }}" class="btn-action btn-edit" title="ویرایش">
+                                    <a href="{{ route('posts.edit', $post->id) }}" class="btn-action btn-edit" title="ویرایش">
+                                        {{--  --}}
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
 
-                                    <form action="{{ route('articles.destroy', $post->id) }}" method="POST" class="d-inline" onsubmit="return confirm('آیا از حذف این مقاله مطمئن هستید؟')">
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="d-inline" onsubmit="return confirm('آیا از حذف این مقاله مطمئن هستید؟')">
+                                        {{--  --}}
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn-action btn-delete" title="حذف">
