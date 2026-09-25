@@ -49,7 +49,6 @@ class StorePostRequest extends FormRequest
             'slug'        => ['nullable', 'string', 'max:255', 'unique:posts,slug'],
             'image' => ['required', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
             'body' => ['required', 'string'],
-
             'is_active' => ['required', 'boolean',],
             'is_featured' => ['required', 'boolean',],
         ];

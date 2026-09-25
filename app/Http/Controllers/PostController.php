@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\support\Str;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -45,16 +46,20 @@ class PostController extends Controller
         $data['user_id'] = $request->user()->id;
 
         // If user didnt wirte slug create one from title
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['slug']);
-        }
+        $data['slug'] = Str::slug(!empty($data['slug']) ? $data['slug'] : $data['title']);
+        // if (empty($data['slug'])) {
+        //     $data['slug'] = Str::slug($data['title']);
+        // } else {
+        //     $data['slug'] = Str::slug($data['slug']);
+        // }
         // Store image from form 
         if ($request->hasFile('image')) {
             // مسیر ذخیره‌شده برمی‌گرده، مثلاً: posts/filename.jpg
-            $data['image'] = $request->file('image')->store('posts', 'public');
+            $path = $request->file('image')->store('posts', 'public');
+            $data['image'] = $path;
         }
-        // Sync Tags if exists
         $post = Post::create($data);
+        // Sync Tags if exists
         if ($request->filled('tags')) {
             $post->tags()->sync($request->input('tags'));
         }
@@ -76,15 +81,20 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::all(); // یا فقط دسته‌های فعال/مرتب‌شده
+
+        return view('posts.edit', compact('post', 'categories'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $post->update($request->validated());
+
+        return redirect()->route('posts.index')->with('success', 'پست با موفقیت ویرایش گردید');
     }
 
     /**
