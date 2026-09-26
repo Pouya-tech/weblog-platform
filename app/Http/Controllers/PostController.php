@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -55,8 +56,7 @@ class PostController extends Controller
         // Store image from form 
         if ($request->hasFile('image')) {
             // مسیر ذخیره‌شده برمی‌گرده، مثلاً: posts/filename.jpg
-            $path = $request->file('image')->store('posts', 'public');
-            $data['image'] = $path;
+            $data['image'] = $request->file('image')->store('posts', 'public');
         }
         $post = Post::create($data);
         // Sync Tags if exists
@@ -92,9 +92,26 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update($request->validated());
+        // Auto Create slug if user changed the title
+        $data = $request->validated();
 
-        return redirect()->route('posts.index')->with('success', 'پست با موفقیت ویرایش گردید');
+
+        $data['slug'] = Str::slug($data['slug'] ?: $data['title']);
+
+
+        // $post->update($request->validated());
+        //    Auto delete the old image if user uploade a image
+        if ($request->hasFile('image')) {
+            if ($post->image && Storage::disk('public')->delete($post->image))
+
+                $data['image'] = $request->file('image')->store('posts', 'public');
+        } else {
+            unset($data['image']);
+        }
+        $post->update($data);
+
+        return redirect()->route('posts.index')
+            ->with('success', 'پست با موفقیت ویرایش گردید');
     }
 
     /**
@@ -102,6 +119,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', 'پست با موفقیت حذف گردید');
     }
 }
