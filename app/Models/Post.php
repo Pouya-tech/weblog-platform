@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 #[Fillable('user_id', 'category_id', 'title', 'slug', 'image', 'body', 'is_active', 'is_featured')]
 class Post extends Model
 {
+    use HasFactory;
+
     public function category(): BelongsTo
     {
         return $this->BelongsTo(Category::class, 'category_id');
