@@ -30,11 +30,11 @@ class PostController extends Controller
             })
             // Filter By From Date
             ->when($request->filled('from_date'), function ($query) use ($request) {
-                $query->whereDate('created_at', '>=', $request->from_date);
+                $query->whereShamsDate('created_at', '>=', $request->from_date);
             })
             // Filter By To Date
             ->when($request->filled('to_date'), function ($query) use ($request) {
-                $query->whereDate('created_at', '<=', $request->to_date);
+                $query->whereShamsDate('created_at', '<=', $request->to_date);
             })
             ->latest()
             ->paginate(10)

@@ -1,5 +1,7 @@
     @extends('layouts.master')
 
+    @section('title', 'ساخت تگ')
+
     @section('content')
         <div class="tag-form-container">
             <div class="tag-card">
@@ -32,8 +34,8 @@
                         <div class="form-group">
                             <label for="slug" class="form-label">اسلاگ (نامک یکتا)</label>
                             <input type="text" name="slug" id="slug"
-                                class="form-control @error('slug') is-invalid @enderror"
-                                placeholder="مثال: ai-technology" value="{{ old('slug') }}">
+                                class="form-control @error('slug') is-invalid @enderror" placeholder="مثال: ai-technology"
+                                value="{{ old('slug') }}">
                             @error('slug')
                                 <span class="error-feedback">{{ $message }}</span>
                             @enderror

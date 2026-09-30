@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+ @section('title', 'ساخت پست ')
+
 @section('content')
 <div class="post-create-container">
 

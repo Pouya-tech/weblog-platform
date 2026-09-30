@@ -1,5 +1,8 @@
 @extends('layouts.master')
 
+@section('title', 'ساخت دسته بندی ')
+
+
 @section('content')
     <div class="category-form-container">
         <div class="category-card">

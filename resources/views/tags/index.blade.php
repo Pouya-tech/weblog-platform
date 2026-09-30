@@ -1,5 +1,8 @@
 @extends('layouts.master')
 
+@section('title', 'تگ ها')
+
+
 @section('content')
     <div class="category-list-container">
 

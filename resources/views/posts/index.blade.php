@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'پست ها')
+
 @section('content')
     <div class="article-list-container">
 
@@ -43,15 +45,15 @@
                     <!-- فیلتر از تاریخ -->
                     <div class="form-group">
                         <label for="from_date">از تاریخ</label>
-                        <input type="date" name="from_date" id="from_date" class="form-input"
-                            value="{{ request('from_date') }}">
+                        <input type="text" name="from_date" id="from_date" class="form-input persian-date-picker"
+                            placeholder="1403/07/01: مثلا" autocomplete="off" value="{{ request('from_date') }}">
                     </div>
 
                     <!-- فیلتر تا تاریخ -->
                     <div class="form-group">
                         <label for="to_date">تا تاریخ</label>
-                        <input type="date" name="to_date" id="to_date" class="form-input"
-                            value="{{ request('to_date') }}">
+                        <input type="text" name="to_date" id="to_date" class="form-input persian-date-picker"
+                            placeholder="1403/07/01: مثلا" autocomplete="off" value="{{ request('to_date') }}">
                     </div>
                 </div>
 
@@ -77,8 +79,7 @@
                 <i class="bi bi-check-circle-fill"></i>
                 <div>{{ session('success') }}</div>
             </div>
-        @endif
-        <!-- کارت جدول مقالات -->
+        @endif <!-- کارت جدول مقالات -->
         <div class="article-table-card">
             <div class="table-responsive">
                 <table class="article-table">
