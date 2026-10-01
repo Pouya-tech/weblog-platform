@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -24,7 +25,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $tags = Tag::all();
+
+        return view('categories.create', compact('tags'));
     }
 
     /**
@@ -32,8 +35,11 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        Category::create($request->validated());
-
+        $category = Category::create($request->validated());
+        // If a tag or multiple tags were selected save the tags relations
+        if ($request->has('tags')) {
+            $category->tags()->attach($request->tags);
+        }
         return redirect()->route('categories.index')
             ->with('success', 'دسته بندی با موفقیت ایجاد شد');
     }
@@ -70,7 +76,7 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect()
-        ->route('categories.index')
-        ->with('success','دسته بندی با موفقیت حذف شد');
+            ->route('categories.index')
+            ->with('success', 'دسته بندی با موفقیت حذف شد');
     }
 }

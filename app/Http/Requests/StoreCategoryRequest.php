@@ -37,6 +37,9 @@ class StoreCategoryRequest extends FormRequest
             'slug' => ['required', 'string', 'max:255', Rule::unique('categories', 'slug')],
             'is_active' => ['required', 'boolean'],
             'is_featured' => ['required', 'boolean'],
+            // For tags
+            'tags' => ['nullable', 'array'],
+            'tags.*' => ['nullable', Rule::exists('tags', 'id')],
         ];
     }
 }
